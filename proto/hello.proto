@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package hello_grpc;
+
+option go_package="./;hello_grpc";
+import "google/api/annotations.proto";
+
+service  HelloService {
+  rpc SayHi(SearchRequest) returns (SearchResponse){
+    option(google.api.http)={
+      post:"/api/test",
+      body:"*"
+    };
+  }
+  rpc SayHi1(stream SearchRequest) returns (SearchResponse){}
+  rpc SayHi2(SearchRequest) returns (stream SearchResponse){}
+  rpc SayHi3(stream SearchRequest) returns (stream SearchResponse){}
+}
+
+message SearchRequest{
+  string request = 1 ;
+}
+message SearchResponse{
+  string response = 1;
+}
